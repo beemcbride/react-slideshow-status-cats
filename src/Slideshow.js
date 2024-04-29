@@ -25,40 +25,37 @@ const Slideshow = ({ slides }) => {
     return () => clearInterval(timer);
   });
 
+  const currentSlide = slides[currentIndex];
+
   return (
     <div className="slideshow-container">
       <div className="slide-container buttons">
         <button onClick={goToPreviousSlide}>Previous</button>
         <button onClick={goToNextSlide}>Next</button>
       </div>
-      {slides.map((each, index) => (
-        <div
-          key={index}
-          className={`slide ${index === currentIndex ? "active" : ""}`}
-        >
-          <img
-            className="lazy"
-            src={statusCatUrl + each.code}
-            alt={each.caption}
-          />
-          <div>
-            <h4 className="caption">
-              HTTP Status {each.code} Cat: {each.caption}
-            </h4>
-            <span className="link">
-              For more information, please visit mdn web docs for&nbsp;
-              <a
-                href={statusCodeUrl + each.code}
-                target="_blank"
-                rel="noreferrer"
-              >
-                HTTP status code {each.code}
-              </a>
-              .
-            </span>
-          </div>
+      <div className="slide active">
+        <img
+          className="lazy"
+          src={statusCatUrl + currentSlide.code}
+          alt={currentSlide.caption}
+        />
+        <div>
+          <h4 className="caption">
+            HTTP Status {currentSlide.code} Cat: {currentSlide.caption}
+          </h4>
+          <p>
+            For more information, please visit mdn web docs for&nbsp;
+            <a
+              href={statusCodeUrl + currentSlide.code}
+              target="_blank"
+              rel="noreferrer"
+            >
+              HTTP status code {currentSlide.code}
+            </a>
+            .
+          </p>
         </div>
-      ))}
+      </div>
     </div>
   );
 };
